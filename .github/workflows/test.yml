@@ -4,8 +4,6 @@ on:
   push:
     branches: [ master ]
 
-  workflow_dispatch:
-
 jobs:
   haskell-18_04:
     runs-on: ubuntu-18.04
