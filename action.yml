@@ -1,11 +1,11 @@
-name: 'Maximize build disk space'
-description: 'Maximize the available disk space for your build job'
+name: 'Maximize build disk space (Only remove unwanted software)'
+description: 'Maximize the available disk space for your build job by removing unwanted software'
 branding:
   icon: 'crop'
   color: 'orange'
 inputs:
   remove-dotnet:
-    description: 'Removes .NET runtime and libraries. (frees ~17 GB)'
+    description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
     required: false
     default: 'false'
   remove-android:
@@ -13,7 +13,7 @@ inputs:
     required: false
     default: 'false'
   remove-haskell:
-    description: 'Removes GHC (Haskell) artifacts. (frees ~2.7 GB)'
+    description: 'Removes GHC (Haskell) artifacts. (frees a few MBs)'
     required: false
     default: 'false'
 runs:
