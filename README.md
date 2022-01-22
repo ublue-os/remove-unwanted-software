@@ -59,9 +59,7 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 512
-          swap-size-mb: 1024
-          remove-dotnet: 'true'
+          remove-android: 'true'
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -76,36 +74,6 @@ jobs:
 All inputs are optional and default to the following, gaining about 7-8 GB additional space.
 
 ```yaml
-  root-reserve-mb:
-    description: 'Space to be left free on the root filesystem, in Megabytes.'
-    required: false
-    default: '1024'
-  temp-reserve-mb:
-    description: 'Space to be left free on the temp filesystem (/mnt), in Megabytes.'
-    required: false
-    default: '100'
-  swap-size-mb:
-    description: 'Swap space to create, in Megabytes.'
-    required: false
-    default: '4096'
-  overprovision-lvm:
-    description: |
-      Create the LVM disk images as sparse files, making the space required for the LVM image files *appear* unused on the
-      hosting volumes until actually allocated. Use with care, this can lead to surprising out-of-disk-space situations.
-      You should prefer adjusting root-reserve-mb/temp-reserve-mb over using this option.
-    required: false
-    default: 'false'
-  build-mount-path:
-    description: 'Absolute path to the mount point where the build space will be available, defaults to $GITHUB_WORKSPACE if unset.'
-    required: false
-  pv-loop-path:
-    description: 'Absolute file path for the LVM image created on the root filesystem, the default is usually fine.'
-    required: false
-    default: '/pv.img'
-  tmp-pv-loop-path:
-    description: 'Absolute file path for the LVM image created on the temp filesystem, the default is usually fine. Must reside on /mnt'
-    required: false
-    default: '/mnt/tmp-pv.img'
   remove-dotnet:
     description: 'Removes .NET runtime and libraries.'
     required: false
