@@ -1,0 +1,279 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  haskell-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+        
+  net-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  net-haskell-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  android-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  android-haskell-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+  android-net-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  android-net-haskell-18_04:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+  haskell-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  net-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+  net-haskell-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  android-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+  android-haskell-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+  android-net-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+  android-net-haskell-20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
