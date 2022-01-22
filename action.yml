@@ -17,7 +17,6 @@ inputs:
     required: false
     default: 'false'
 runs:
-  using: "composite"
   steps:
     - name: Disk space report before modification
       shell: bash
