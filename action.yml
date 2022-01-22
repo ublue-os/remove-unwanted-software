@@ -2,7 +2,7 @@ name: 'Maximize build disk space (Only remove unwanted software)'
 description: 'Maximize the available disk space for your build job by removing unwanted software'
 branding:
   icon: 'crop'
-  color: 'orange'
+  color: 'blue'
 inputs:
   remove-dotnet:
     description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
