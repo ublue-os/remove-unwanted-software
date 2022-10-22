@@ -22,7 +22,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
   net-18_04:
     runs-on: ubuntu-18.04
@@ -41,7 +41,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   net-haskell-18_04:
     runs-on: ubuntu-18.04
@@ -61,7 +61,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   android-18_04:
     runs-on: ubuntu-18.04
@@ -80,7 +80,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   android-haskell-18_04:
     runs-on: ubuntu-18.04
@@ -100,7 +100,8 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
   android-net-18_04:
     runs-on: ubuntu-18.04
     steps:
@@ -119,7 +120,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   android-net-haskell-18_04:
     runs-on: ubuntu-18.04
@@ -140,7 +141,8 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
   haskell-20_04:
     runs-on: ubuntu-20.04
     steps:
@@ -158,7 +160,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   net-20_04:
     runs-on: ubuntu-20.04
@@ -177,7 +179,8 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
   net-haskell-20_04:
     runs-on: ubuntu-20.04
     steps:
@@ -196,7 +199,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   android-20_04:
     runs-on: ubuntu-20.04
@@ -215,7 +218,8 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
   android-haskell-20_04:
     runs-on: ubuntu-20.04
     steps:
@@ -234,7 +238,7 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   android-net-20_04:
     runs-on: ubuntu-20.04
@@ -254,7 +258,8 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
   android-net-haskell-20_04:
     runs-on: ubuntu-20.04
     steps:
@@ -274,4 +279,142 @@ jobs:
           df -h
       
       - name: 'Checkout repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+  haskell-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  net-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  net-haskell-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  android-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  android-haskell-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  android-net-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
+
+  android-net-haskell-22_04:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate report
+        run: |
+          echo "==> Available space before cleanup"
+          echo
+          df -h
+          echo
+          echo "==> Cleaning up disk space for the CI..."
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          echo "==> Available space after cleanup"
+          echo
+          df -h
+      
+      - name: 'Checkout repo'
+        uses: actions/checkout@v3
