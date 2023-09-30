@@ -7,15 +7,19 @@ inputs:
   remove-dotnet:
     description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-android:
     description: 'Removes Android SDKs and Tools. (frees ~11 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-haskell:
     description: 'Removes GHC (Haskell) artifacts. (frees a few MBs)'
     required: false
-    default: 'false'
+    default: 'true'
+  remove-large-packages:
+    description: 'Removes large packages. (frees ~5 GB)'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -41,6 +45,9 @@ runs:
           if [[ ${{ inputs.remove-haskell }} == 'true' ]]; then
             echo -n "haskell "
           fi
+          if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
+            echo -n "large-packages "
+          fi
           echo
 
           echo "Removing unwanted software... "
@@ -52,6 +59,22 @@ runs:
           fi
           if [[ ${{ inputs.remove-haskell }} == 'true' ]]; then
             sudo rm -rf /opt/ghc
+          fi
+          if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
+            sudo apt-get purge -y \
+              '^llvm-.*' \
+              'php.*' \
+              '^mongodb-.*' \
+              '^mysql-.*' \
+              azure-cli \
+              google-cloud-sdk \
+              google-chrome-stable \
+              firefox \
+              powershell \
+              microsoft-edge-stable \
+              mono-devel
+            sudo apt-get autoremove -y
+            sudo apt-get clean
           fi
           echo "... done"
 
