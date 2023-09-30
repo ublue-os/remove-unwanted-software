@@ -20,6 +20,10 @@ inputs:
     description: 'Removes large packages. (frees ~5 GB)'
     required: false
     default: 'true'
+  remove-docker-cached-images:
+    description: 'Removes cached images in docker. (frees ~5 GB)'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -48,6 +52,9 @@ runs:
           if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
             echo -n "large-packages "
           fi
+          if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
+            echo -n "remove-docker-cached-images "
+          fi
           echo
 
           echo "Removing unwanted software... "
@@ -74,6 +81,9 @@ runs:
               mono-devel
             sudo apt-get autoremove -y
             sudo apt-get clean
+          fi
+          if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
+            sudo docker image purge --all --force
           fi
           echo "... done"
 
