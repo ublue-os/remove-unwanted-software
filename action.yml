@@ -67,7 +67,6 @@ runs:
               '^mongodb-.*' \
               '^mysql-.*' \
               azure-cli \
-              google-cloud-sdk \
               google-chrome-stable \
               firefox \
               powershell \
