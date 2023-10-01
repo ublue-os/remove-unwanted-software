@@ -48,6 +48,10 @@ inputs:
     description: 'Removes cached images in docker. (frees ~5 GB)'
     required: false
     default: 'true'
+  remove-codeql:
+    description: 'Removes CodeQL Action Bundles. (frees ~5.4 GB)'
+    required: false
+    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -90,6 +94,9 @@ runs:
           fi
           if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
             echo -n "remove-docker-cached-images "
+          fi
+          if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
+            echo -n "codeql "
           fi
           echo
 
@@ -180,6 +187,9 @@ runs:
           fi
           if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
             sudo docker image prune --all --force
+          fi
+          if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
+            sudo rm -rf /opt/hostedtoolcache/CodeQL
           fi
           echo "... done"
 
