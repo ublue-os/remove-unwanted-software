@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Maximize build space
-        uses: AdityaGarg8/remove-unwanted-software@v1
+        uses: AdityaGarg8/remove-unwanted-software@v2
         with:
           remove-android: 'true'
       - name: Checkout
