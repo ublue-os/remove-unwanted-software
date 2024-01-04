@@ -71,7 +71,7 @@ runs:
             sudo rm -rf /opt/hostedtoolcache/CodeQL
           fi
           if [[ ${{ inputs.remove-docker-images }} == 'true' ]]; then
-            sudo docker image prune --all --force
+            sudo docker image prune --all --force > /dev/null
           fi
           echo "... done"
 
