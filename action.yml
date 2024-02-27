@@ -4,6 +4,10 @@ branding:
   icon: 'crop'
   color: 'blue'
 inputs:
+  use-sudo:
+    description: 'Whether to use sudo for removing files. Default is true.'
+    required: false
+    default: 'true'
   remove-dotnet:
     description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
     required: false
@@ -42,6 +46,11 @@ runs:
       shell: bash
       run: |
           set -euo pipefail
+          if [[ "${{ inputs.use-sudo }}" == 'true' ]]; then
+            SUDO_PREFIX="sudo"
+          else
+            SUDO_PREFIX=""
+          fi
 
           echo -n "  Removing:     "
           if [[ ${{ inputs.remove-dotnet }} == 'true' ]]; then
@@ -66,16 +75,16 @@ runs:
 
           echo "Removing unwanted software... "
           if [[ ${{ inputs.remove-dotnet }} == 'true' ]]; then
-            sudo rm -rf /usr/share/dotnet
+            $SUDO_PREFIX rm -rf /usr/share/dotnet
           fi
           if [[ ${{ inputs.remove-android }} == 'true' ]]; then
-            sudo rm -rf /usr/local/lib/android
+            $SUDO_PREFIX rm -rf /usr/local/lib/android
           fi
           if [[ ${{ inputs.remove-haskell }} == 'true' ]]; then
-            sudo rm -rf /opt/ghc
+            $SUDO_PREFIX rm -rf /opt/ghc
           fi
           if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
-            sudo apt-get purge -y \
+            $SUDO_PREFIX apt-get purge -y \
               '^llvm-.*' \
               'php.*' \
               '^mongodb-.*' \
@@ -86,14 +95,14 @@ runs:
               powershell \
               microsoft-edge-stable \
               mono-devel
-            sudo apt-get autoremove -y
-            sudo apt-get clean
+            $SUDO_PREFIX apt-get autoremove -y
+            $SUDO_PREFIX apt-get clean
           fi
           if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
-            sudo docker image prune --all --force
+            $SUDO_PREFIX docker image prune --all --force
           fi
           if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
-            sudo rm -rf /opt/hostedtoolcache/CodeQL
+            $SUDO_PREFIX rm -rf /opt/hostedtoolcache/CodeQL
           fi
           echo "... done"
 
