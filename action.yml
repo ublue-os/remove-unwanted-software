@@ -4,6 +4,10 @@ branding:
   icon: 'crop'
   color: 'blue'
 inputs:
+  use-sudo:
+    description: 'Whether to use sudo for removing files. Default is true.'
+    required: false
+    default: 'true'
   remove-dotnet:
     description: 'Removes .NET runtime and libraries. (frees ~2 GB)'
     required: false
@@ -48,10 +52,6 @@ inputs:
     description: 'Removes cached images in docker. (frees ~5 GB)'
     required: false
     default: 'true'
-  remove-codeql:
-    description: 'Removes CodeQL Action Bundles. (frees ~5.4 GB)'
-    required: false
-    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -66,6 +66,11 @@ runs:
       shell: bash
       run: |
           set -euo pipefail
+          if [[ "${{ inputs.use-sudo }}" == 'true' ]]; then
+            SUDO_PREFIX="sudo"
+          else
+            SUDO_PREFIX=""
+          fi
 
           echo -n "  Removing:     "
           if [[ ${{ inputs.remove-dotnet }} == 'true' ]]; then
@@ -107,23 +112,23 @@ runs:
   
           echo "Removing unwanted software... "
           if [[ ${{ inputs.remove-dotnet }} == 'true' ]]; then
-            sudo rm -rf ${verbose} /usr/share/dotnet
+            $SUDO_PREFIX rm -rf ${verbose} /usr/share/dotnet
           fi
           if [[ ${{ inputs.remove-android }} == 'true' ]]; then
-            sudo rm -rf ${verbose} /usr/local/lib/android
+            $SUDO_PREFIX rm -rf ${verbose} /usr/local/lib/android
           fi
           if [[ ${{ inputs.remove-haskell }} == 'true' ]]; then
-            sudo rm -rf ${verbose} /opt/ghc
-            sudo rm -rf ${verbose} /usr/local/.ghcup
+            $SUDO_PREFIX rm -rf ${verbose} /opt/ghc
+            $SUDO_PREFIX rm -rf ${verbose} /usr/local/.ghcup
           fi
           if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
-            sudo rm -rf ${verbose} /opt/hostedtoolcache/CodeQL
+            $SUDO_PREFIX rm -rf ${verbose} /opt/hostedtoolcache/CodeQL
           fi
           if [[ ${{ inputs.remove-docker-images }} == 'true' ]]; then
             if [[ ${{ inputs.verbose }} == 'true' ]]; then
-              sudo docker image prune --all --force
+              $SUDO_PREFIX docker image prune --all --force
             else
-              sudo docker image prune --all --force > /dev/null
+              $SUDO_PREFIX docker image prune --all --force > /dev/null
             fi  
           fi
           CODENAME=$(lsb_release -c | cut -d ":" -f 2 | xargs)
@@ -134,62 +139,45 @@ runs:
           fi
           if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
             if [[ ${{ inputs.verbose }} == 'true' ]]; then
-              sudo apt-get remove -y '^aspnetcore-.*'
-              sudo apt-get remove -y '^dotnet-.*'
-              sudo apt-get remove -y '^llvm-.*'
-              sudo apt-get remove -y 'php.*'
-              sudo apt-get remove -y '^mongodb-.*'
-              sudo apt-get remove -y '^mysql-.*'
-              sudo apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing
+              $SUDO_PREFIX apt-get remove -y '^aspnetcore-.*'
+              $SUDO_PREFIX apt-get remove -y '^dotnet-.*'
+              $SUDO_PREFIX apt-get remove -y '^llvm-.*'
+              $SUDO_PREFIX apt-get remove -y 'php.*'
+              $SUDO_PREFIX apt-get remove -y '^mongodb-.*'
+              $SUDO_PREFIX apt-get remove -y '^mysql-.*'
+              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} microsoft-edge-stable mono-devel libgl1-mesa-dri --fix-missing
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
-                sudo apt-get remove -y google-cloud-sdk --fix-missing
-                sudo apt-get remove -y google-cloud-cli --fix-missing
+                $SUDO_PREFIX apt-get remove -y google-cloud-sdk --fix-missing
+                $SUDO_PREFIX apt-get remove -y google-cloud-cli --fix-missing
               fi
-              sudo apt-get autoremove -y
-              sudo apt-get clean
+              $SUDO_PREFIX apt-get autoremove -y
+              $SUDO_PREFIX apt-get clean
             else
-              sudo apt-get remove -y '^aspnetcore-.*' > /dev/null
-              sudo apt-get remove -y '^dotnet-.*' > /dev/null
-              sudo apt-get remove -y '^llvm-.*' > /dev/null
-              sudo apt-get remove -y 'php.*' > /dev/null
-              sudo apt-get remove -y '^mongodb-.*' > /dev/null
-              sudo apt-get remove -y '^mysql-.*' > /dev/null
-              sudo apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
+              $SUDO_PREFIX apt-get remove -y '^aspnetcore-.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y '^dotnet-.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y '^llvm-.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y 'php.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y '^mongodb-.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y '^mysql-.*' > /dev/null
+              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} microsoft-edge-stable mono-devel libgl1-mesa-dri --fix-missing > /dev/null
+              
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
-                sudo apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
-                sudo apt-get remove -y google-cloud-cli --fix-missing > /dev/null
+                $SUDO_PREFIX apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
+                $SUDO_PREFIX apt-get remove -y google-cloud-cli --fix-missing > /dev/null
               fi
-              sudo apt-get autoremove -y > /dev/null
-              sudo apt-get clean > /dev/null
+              $SUDO_PREFIX apt-get autoremove -y > /dev/null
+              $SUDO_PREFIX apt-get clean > /dev/null
             fi 
           fi
           if [[ ${{ inputs.remove-cached-tools }} == 'true' ]]; then
-            sudo rm -rf ${verbose} "$AGENT_TOOLSDIRECTORY"
+            $SUDO_PREFIX rm -rf ${verbose} "$AGENT_TOOLSDIRECTORY"
           fi
           if [[ ${{ inputs.remove-swapfile }} == 'true' ]]; then
-            sudo swapoff -a ${verbose}
-            sudo rm -f ${verbose} /mnt/swapfile
-          fi
-          if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
-            sudo apt-get purge -y \
-              '^llvm-.*' \
-              'php.*' \
-              '^mongodb-.*' \
-              '^mysql-.*' \
-              azure-cli \
-              google-chrome-stable \
-              firefox \
-              powershell \
-              microsoft-edge-stable \
-              mono-devel
-            sudo apt-get autoremove -y
-            sudo apt-get clean
+            $SUDO_PREFIX swapoff -a ${verbose}
+            $SUDO_PREFIX rm -f ${verbose} /mnt/swapfile
           fi
           if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
-            sudo docker image prune --all --force
-          fi
-          if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
-            sudo rm -rf /opt/hostedtoolcache/CodeQL
+            $SUDO_PREFIX docker image prune --all --force
           fi
           echo "... done"
 
