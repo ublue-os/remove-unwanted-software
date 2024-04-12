@@ -68,13 +68,13 @@ runs:
             echo -n "docker "
           fi
           if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
-            echo -n "docker "
+            echo -n "large_packages "
           fi
           if [[ ${{ inputs.remove-cached-tools }} == 'true' ]]; then
-            echo -n "docker "
+            echo -n "cached_tools "
           fi
           if [[ ${{ inputs.remove-swap }} == 'true' ]]; then
-            echo -n "docker "
+            echo -n "swap "
           fi
           echo
 
