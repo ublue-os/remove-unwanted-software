@@ -71,7 +71,7 @@ runs:
             echo -n "large_packages "
           fi
           if [[ ${{ inputs.remove-cached-tools }} == 'true' ]]; then
-            echo -n "cached_toola "
+            echo -n "cached_tools "
           fi
           if [[ ${{ inputs.remove-swapfile }} == 'true' ]]; then
             echo -n "swapfile "
