@@ -99,10 +99,10 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
     required: false
     default: 'false'
   remove-cached-tools:
-    description: 'Removes cached tools used by GitHub's setup actions. (frees ~8.3 GB)'
+    description: 'Removes cached tools used by setup actions by GitHub. (frees ~8.3 GB)'
     required: false
     default: 'false'
-  remove-swap:
+  remove-swapfile:
     description: 'Removes the Swapfile. (frees ~4 GB)'
     required: false
     default: 'false'
