@@ -145,7 +145,7 @@ runs:
               $SUDO_PREFIX apt-get remove -y 'php.*'
               $SUDO_PREFIX apt-get remove -y '^mongodb-.*'
               $SUDO_PREFIX apt-get remove -y '^mysql-.*'
-              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} microsoft-edge-stable mono-devel libgl1-mesa-dri --fix-missing
+              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
                 $SUDO_PREFIX apt-get remove -y google-cloud-sdk --fix-missing
                 $SUDO_PREFIX apt-get remove -y google-cloud-cli --fix-missing
@@ -159,7 +159,7 @@ runs:
               $SUDO_PREFIX apt-get remove -y 'php.*' > /dev/null
               $SUDO_PREFIX apt-get remove -y '^mongodb-.*' > /dev/null
               $SUDO_PREFIX apt-get remove -y '^mysql-.*' > /dev/null
-              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} microsoft-edge-stable mono-devel libgl1-mesa-dri --fix-missing > /dev/null
+              $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
               
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
                 $SUDO_PREFIX apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
