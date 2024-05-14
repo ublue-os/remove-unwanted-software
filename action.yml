@@ -92,8 +92,6 @@ runs:
               azure-cli \
               google-chrome-stable \
               firefox \
-              powershell \
-              microsoft-edge-stable \
               mono-devel
             $SUDO_PREFIX apt-get autoremove -y
             $SUDO_PREFIX apt-get clean
