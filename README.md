@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Maximize build space
-        uses: AdityaGarg8/remove-unwanted-software@v3
+        uses: AdityaGarg8/remove-unwanted-software@v4
         with:
           remove-android: 'true'
       - name: Checkout
@@ -106,6 +106,10 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
     description: 'Removes the Swapfile. (frees ~4 GB)'
     required: false
     default: 'false'
+  verbose:
+    description: 'Enables detailed logging of the action'
+    required: false
+    default: 'false' 
 ```
 
 [easimon/maximize-build-space]: https://github.com/easimon/maximize-build-space
