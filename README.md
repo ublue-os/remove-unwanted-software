@@ -58,8 +58,7 @@ jobs:
     steps:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@v7
-        with:
-          remove-android: 'true'
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -75,15 +74,27 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
 
 ```yaml
   remove-dotnet:
-    description: 'Removes .NET runtime and libraries.'
+    description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-android:
-    description: 'Removes Android SDKs and Tools.'
+    description: 'Removes Android SDKs and Tools. (frees ~11 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-haskell:
-    description: 'Removes GHC (Haskell) artifacts.'
+    description: 'Removes GHC (Haskell) artifacts. (frees a few MBs)'
+    required: false
+    default: 'true'
+  remove-large-packages:
+    description: 'Removes large packages. (frees ~5 GB)'
+    required: false
+    default: 'true'
+  remove-docker-cached-images:
+    description: 'Removes cached images in docker. (frees ~5 GB)'
+    required: false
+    default: 'true'
+  remove-codeql:
+    description: 'Removes CodeQL Action Bundles. (frees ~5.4 GB)'
     required: false
     default: 'false'
 ```
