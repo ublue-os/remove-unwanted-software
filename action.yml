@@ -43,7 +43,7 @@ inputs:
   verbose:
     description: 'Enables detailed logging of the action'
     required: false
-    default: 'true'
+    default: 'false'
 runs:
   using: "composite"
   steps:
