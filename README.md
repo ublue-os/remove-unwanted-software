@@ -58,6 +58,8 @@ jobs:
     steps:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@v7
+        with:
+          verbose: "true"
 
       - name: Checkout
         uses: actions/checkout@v3
