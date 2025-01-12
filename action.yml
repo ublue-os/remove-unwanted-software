@@ -19,7 +19,7 @@ inputs:
   remove-haskell:
     description: 'Removes GHC (Haskell) artifacts. (frees ~5.2 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-codeql:
     description: 'Removes CodeQL Action Bundles. (frees ~5.4 GB)'
     required: false
@@ -27,29 +27,21 @@ inputs:
   remove-docker-images:
     description: 'Removes cached Docker images. (frees ~3.2 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-large-packages:
     description: 'Removes unwanted large Apt packages. (frees ~3.1 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-cached-tools:
     description: 'Removes cached tools used by setup actions by GitHub. (frees ~8.3 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-swapfile:
     description: 'Removes the Swapfile. (frees ~4 GB)'
     required: false
     default: 'false'
   verbose:
     description: 'Enables detailed logging of the action'
-    required: false
-    default: 'true'
-  remove-large-packages:
-    description: 'Removes large packages. (frees ~5 GB)'
-    required: false
-    default: 'true'
-  remove-docker-cached-images:
-    description: 'Removes cached images in docker. (frees ~5 GB)'
     required: false
     default: 'true'
 runs:
@@ -96,12 +88,6 @@ runs:
           fi
           if [[ ${{ inputs.remove-swapfile }} == 'true' ]]; then
             echo -n "swapfile "
-          fi
-          if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
-            echo -n "remove-docker-cached-images "
-          fi
-          if [[ ${{ inputs.remove-codeql }} == 'true' ]]; then
-            echo -n "codeql "
           fi
           echo
 
@@ -160,7 +146,6 @@ runs:
               $SUDO_PREFIX apt-get remove -y '^mongodb-.*' > /dev/null
               $SUDO_PREFIX apt-get remove -y '^mysql-.*' > /dev/null
               $SUDO_PREFIX apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
-              
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
                 $SUDO_PREFIX apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
                 $SUDO_PREFIX apt-get remove -y google-cloud-cli --fix-missing > /dev/null
@@ -175,9 +160,6 @@ runs:
           if [[ ${{ inputs.remove-swapfile }} == 'true' ]]; then
             $SUDO_PREFIX swapoff -a ${verbose}
             $SUDO_PREFIX rm -f ${verbose} /mnt/swapfile
-          fi
-          if [[ ${{ inputs.remove-docker-cached-images }} == 'true' ]]; then
-            $SUDO_PREFIX docker image prune --all --force
           fi
           echo "... done"
 

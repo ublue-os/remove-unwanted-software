@@ -92,15 +92,15 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
   remove-docker-images:
     description: 'Removes cached Docker images. (frees ~3.2 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-large-packages:
     description: 'Removes unwanted large Apt packages. (frees ~3.1 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-cached-tools:
     description: 'Removes cached tools used by setup actions by GitHub. (frees ~8.3 GB)'
     required: false
-    default: 'false'
+    default: 'true'
   remove-swapfile:
     description: 'Removes the Swapfile. (frees ~4 GB)'
     required: false
@@ -111,4 +111,4 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
     default: 'false' 
 ```
 
-[easimon/maximize-build-space]: https://github.com/easimon/maximize-build-space
+[AdityaGarg8/maximize-build-space]: https://github.com/AdityaGarg8/remove-unwanted-software
