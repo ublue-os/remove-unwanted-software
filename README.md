@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Maximize build space
-        uses: ublue-os/remove-unwanted-software@v7
+        uses: ublue-os/remove-unwanted-software@v8
 
       - name: Checkout
         uses: actions/checkout@v3
