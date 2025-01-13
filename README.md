@@ -10,10 +10,10 @@ If not: please go on, there's nothing to see here.
 This action maximizes the available disk space on public shared GitHub runners, by
 
 - ~~Utilizing space on an otherwise unused temp disk~~
-- Optionally removing unnecessary preinstalled software (Only this way out)
-- ~~Optionally resizing the SWAP space~~
+- Optionally removing unnecessary preinstalled software
+- Optionally removing the swapfile
 
-This shall make you gain aroud 19GB on Ubuntu 20.04
+This shall make you gain around 32GB on Ubuntu 22.04
 
 The idea came up when I tried to build a Ubuntu Linux Kernel DEB on Github, and the Job aborted due to disk space issues.
 
@@ -32,7 +32,7 @@ At the time of writing, public [Github-hosted runners](https://docs.github.com/e
 
 This action does the following:
 
-1. (Optionally) removes unwanted preinstalled software
+1. (Optionally) removes unwanted preinstalled software and the swapfile
 1. ~~Concatenates the free space on `/` and `/mnt` (the temp disk) to an LVM volume group~~
 1. ~~Creates a swap partition and a build volume on that volume group~~
 1. ~~Mounts the build volume back to a given path (`${GITHUB_WORKSPACE}` by default)~~
@@ -60,7 +60,7 @@ jobs:
         uses: ublue-os/remove-unwanted-software@v7
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build
         run: |
@@ -74,29 +74,39 @@ All inputs are optional and default to the following, gaining about 7-8 GB addit
 
 ```yaml
   remove-dotnet:
-    description: 'Removes .NET runtime and libraries. (frees ~4 GB)'
+    description: 'Removes .NET runtime and libraries. (frees ~2 GB)'
     required: false
     default: 'true'
   remove-android:
-    description: 'Removes Android SDKs and Tools. (frees ~11 GB)'
+    description: 'Removes Android SDKs and Tools. (frees ~9 GB)'
     required: false
     default: 'true'
   remove-haskell:
-    description: 'Removes GHC (Haskell) artifacts. (frees a few MBs)'
-    required: false
-    default: 'true'
-  remove-large-packages:
-    description: 'Removes large packages. (frees ~5 GB)'
-    required: false
-    default: 'true'
-  remove-docker-cached-images:
-    description: 'Removes cached images in docker. (frees ~5 GB)'
+    description: 'Removes GHC (Haskell) artifacts. (frees ~5.2 GB)'
     required: false
     default: 'true'
   remove-codeql:
     description: 'Removes CodeQL Action Bundles. (frees ~5.4 GB)'
     required: false
+    default: 'true'
+  remove-docker-images:
+    description: 'Removes cached Docker images. (frees ~3.2 GB)'
+    required: false
+    default: 'true'
+  remove-large-packages:
+    description: 'Removes unwanted large Apt packages. (frees ~3.1 GB)'
+    required: false
+    default: 'true'
+  remove-cached-tools:
+    description: 'Removes cached tools used by setup actions by GitHub. (frees ~8.3 GB)'
+    required: false
+    default: 'true'
+  remove-swapfile:
+    description: 'Removes the Swapfile. (frees ~4 GB)'
+    required: false
     default: 'false'
+  verbose:
+    description: 'Enables detailed logging of the action'
+    required: false
+    default: 'false' 
 ```
-
-[easimon/maximize-build-space]: https://github.com/easimon/maximize-build-space
