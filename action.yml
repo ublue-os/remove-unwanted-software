@@ -122,7 +122,10 @@ runs:
               sudo apt-get remove -y 'php.*'
               sudo apt-get remove -y '^mongodb-.*'
               sudo apt-get remove -y '^mysql-.*'
-              sudo apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing
+              if [[ "$(uname -m)" == "x86_64" ]]; then
+                sudo apt-get remove -y google-chrome-stable
+              fi
+              sudo apt-get remove -y azure-cli firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
                 sudo apt-get remove -y google-cloud-sdk --fix-missing
                 sudo apt-get remove -y google-cloud-cli --fix-missing
@@ -136,7 +139,10 @@ runs:
               sudo apt-get remove -y 'php.*' > /dev/null
               sudo apt-get remove -y '^mongodb-.*' > /dev/null
               sudo apt-get remove -y '^mysql-.*' > /dev/null
-              sudo apt-get remove -y azure-cli google-chrome-stable firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
+              if [[ "$(uname -m)" == "x86_64" ]]; then
+                sudo apt-get remove -y google-chrome-stable > /dev/null
+              fi
+              sudo apt-get remove -y azure-cli firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
               if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
                 sudo apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
                 sudo apt-get remove -y google-cloud-cli --fix-missing > /dev/null
