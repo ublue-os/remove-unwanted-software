@@ -109,11 +109,6 @@ runs:
             fi  
           fi
           CODENAME=$(lsb_release -c | cut -d ":" -f 2 | xargs)
-          if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
-            POWERSHELL=powershell
-          else
-            POWERSHELL=powershell-lts
-          fi
           if [[ ${{ inputs.remove-large-packages }} == 'true' ]]; then
             if [[ ${{ inputs.verbose }} == 'true' ]]; then
               sudo apt-get remove -y '^aspnetcore-.*'
@@ -123,13 +118,11 @@ runs:
               sudo apt-get remove -y '^mongodb-.*'
               sudo apt-get remove -y '^mysql-.*'
               if [[ "$(uname -m)" == "x86_64" ]]; then
-                sudo apt-get remove -y google-chrome-stable
-              fi
-              sudo apt-get remove -y azure-cli firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing
-              if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
-                sudo apt-get remove -y google-cloud-sdk --fix-missing
+                sudo apt-get remove -y google-chrome-stable microsoft-edge-stable
                 sudo apt-get remove -y google-cloud-cli --fix-missing
+                sudo apt-get remove -y powershell --fix-missing
               fi
+              sudo apt-get remove -y azure-cli firefox mono-devel libgl1-mesa-dri --fix-missing
               sudo apt-get autoremove -y
               sudo apt-get clean
             else
@@ -140,13 +133,11 @@ runs:
               sudo apt-get remove -y '^mongodb-.*' > /dev/null
               sudo apt-get remove -y '^mysql-.*' > /dev/null
               if [[ "$(uname -m)" == "x86_64" ]]; then
-                sudo apt-get remove -y google-chrome-stable > /dev/null
-              fi
-              sudo apt-get remove -y azure-cli firefox ${POWERSHELL} mono-devel libgl1-mesa-dri --fix-missing > /dev/null
-              if [[ (${CODENAME} = focal) || (${CODENAME} = jammy) ]]; then
-                sudo apt-get remove -y google-cloud-sdk --fix-missing > /dev/null
+                sudo apt-get remove -y google-chrome-stable microsoft-edge-stable > /dev/null
                 sudo apt-get remove -y google-cloud-cli --fix-missing > /dev/null
+                sudo apt-get remove -y powershell --fix-missing > /dev/null
               fi
+              sudo apt-get remove -y azure-cli firefox mono-devel libgl1-mesa-dri --fix-missing > /dev/null
               sudo apt-get autoremove -y > /dev/null
               sudo apt-get clean > /dev/null
             fi 
