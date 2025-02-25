@@ -5,7 +5,7 @@ branding:
   color: 'blue'
 inputs:
   use-sudo:
-    description: 'Whether to use $SUDO_PREFIX for removing files. Default is true.'
+    description: 'Whether to use sudo for removing files. Default is true.'
     required: false
     default: 'true'
   remove-dotnet:
